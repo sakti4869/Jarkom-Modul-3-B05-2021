@@ -126,3 +126,15 @@ service bind9 restart
   ![image](https://user-images.githubusercontent.com/71221969/141068342-e5ec382c-00c0-4ee7-b819-351f67109821.png)
   - pada `TottoLand`
   ![image](https://user-images.githubusercontent.com/71221969/141068421-8932f57d-76ea-42e5-b014-fe12416c479f.png)
+
+## 5. Lama waktu DHCP server meminjamkan alamat IP kepada Client yang melalui Switch1 selama 6 menit sedangkan pada client yang melalui Switch3 selama 12 menit. Dengan waktu maksimal yang dialokasikan untuk peminjaman alamat IP selama 120 menit.
+Nomor ini telah kami kerjakan sekaligus pada nomor 3 sebelumnya yaitu pada code bagian: (pada subnet `192.179.1.0`)
+```
+default-lease-time 360;
+max-lease-time 7200;
+```
+serta code: (pada subnet `192.179.3.0`)
+```
+default-lease-time 720;
+max-lease-time 7200;
+```
