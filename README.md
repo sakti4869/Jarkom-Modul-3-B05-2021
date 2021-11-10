@@ -309,3 +309,6 @@ deny_info http://super.franky.b05.com/ BLACKLIST
 http_reply_access deny BLACKLIST
 ```
 ![image](https://user-images.githubusercontent.com/71221969/141107431-ea283106-0689-49ea-bbb9-1ed91b0c9d0f.png)
+-Langkah 12: ketika pada `Loguetown` dijalankan `lynx google.com` maka akan me-redirect ke halaman `super.franky.b05.com` yang telah di buat
+![image](https://user-images.githubusercontent.com/71221969/141119877-9a49057f-b701-4fec-9af3-28e10005e82f.png)
+![image](https://user-images.githubusercontent.com/71221969/141119890-1ea8c389-26bf-44dd-9dbe-868394749e92.png)
