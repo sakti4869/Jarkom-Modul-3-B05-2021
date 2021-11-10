@@ -27,3 +27,24 @@ apt-get install isc-dhcp-relay -y
 ```
 - Langkah 2: set SERVERS nya dengan IP dari DHCP server yaitu `192.179.2.4` supaya terhubung dengan DHCP server dan interfaces nya menjadi `eth1 eth2 eth3` supaya terhubung dengan switch1, switch2 dan switch3
 ![image](https://user-images.githubusercontent.com/71221969/141056838-487762cf-b4cb-49b5-befd-47c793d9ccde.png)
+
+# Ada beberapa kriteria yang ingin dibuat oleh Luffy dan Zoro, yaitu:
+## 1. Semua client yang ada HARUS menggunakan konfigurasi IP dari DHCP Server.
+- Langkah 1: set file `interfaces` pada directory `/etc/network` dengan kode berikut supaya IP nya menggunakan konfigurasi dari DHCP server:
+```
+auto eth0
+iface eth0 inet dhcp
+```
+- Pada `Loguetown`
+![image](https://user-images.githubusercontent.com/71221969/141057409-7cff0855-d38f-4f64-9825-415a80df928d.png)
+<br>
+- Pada `Alabasta`
+![image](https://user-images.githubusercontent.com/71221969/141057899-cd710bb9-0eae-450b-b941-6bf8b69a0d43.png)
+<br>
+- Pada `Skypie`
+![image](https://user-images.githubusercontent.com/71221969/141057994-2a1ff717-11ce-433b-8932-675c35757497.png)
+<br>
+- Pada `TottoLand`
+![image](https://user-images.githubusercontent.com/71221969/141058284-a7caebf5-8f4f-4b79-a264-2cd6c36ae7eb.png)
+
+
