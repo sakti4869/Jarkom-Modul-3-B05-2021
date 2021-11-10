@@ -4,6 +4,7 @@
 - Langkah 1: Buat topologi nya
 ![image](https://user-images.githubusercontent.com/71221969/141052412-7a553923-e37f-4276-a44c-0fb293a580de.png)
 - Langkah 2: install library yang diperlukan <br>
+
 jalankan pada EniesLobby supaya menjadi DNS Server:
 ```
 apt-get install bind9 -y
