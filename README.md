@@ -30,7 +30,7 @@ apt-get install isc-dhcp-relay -y
 
 # Ada beberapa kriteria yang ingin dibuat oleh Luffy dan Zoro, yaitu:
 (nomor 3 - 6)
-## 1. Semua client yang ada HARUS menggunakan konfigurasi IP dari DHCP Server.
+### 1. Semua client yang ada HARUS menggunakan konfigurasi IP dari DHCP Server.
 - Langkah 1: set file `interfaces` pada directory `/etc/network` dengan kode berikut supaya IP nya menggunakan konfigurasi dari DHCP server:
 ```
 auto eth0
@@ -48,7 +48,7 @@ iface eth0 inet dhcp
 - Pada `TottoLand`
 ![image](https://user-images.githubusercontent.com/71221969/141058284-a7caebf5-8f4f-4b79-a264-2cd6c36ae7eb.png)
 
-## 2. Client yang melalui Switch1 mendapatkan range IP dari [prefix IP].1.20 - [prefix IP].1.99 dan [prefix IP].1.150 - [prefix IP].1.169
+### (Nomor 3) 2. Client yang melalui Switch1 mendapatkan range IP dari [prefix IP].1.20 - [prefix IP].1.99 dan [prefix IP].1.150 - [prefix IP].1.169
 - Langkah 1: edit konfigurasi pada file `dhcpd.conf` pada directory `/etc/dhcp/` dengan menambahkan:
 ```
 subnet 192.179.2.0 netmask 255.255.255.0 {
@@ -76,7 +76,7 @@ untuk mengatur range IP pada `Switch1`
   - Pada `Alabasta` terlihat bahwa ip nya adalah `192.179.1.34/24` yang masih termasuk dalam range
   ![image](https://user-images.githubusercontent.com/71221969/141069228-a7b0831e-4821-4bb3-96e2-3d72abdd5991.png)
 
-## 3. Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.30 - [prefix IP].3.50
+### (Nomor 4) 3. Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.30 - [prefix IP].3.50
 - Langkah 1: tambahkan juga konfigurasi pada file `dhcpd.conf` pada directory `/etc/dhcp/` pada DHCP server dengan:
 ```
 subnet 192.179.3.0 netmask 255.255.255.0 {
@@ -96,7 +96,7 @@ subnet 192.179.3.0 netmask 255.255.255.0 {
   - Pada `Skypie` terlihat bahwa ip nya adalah `192.179.3.69/24` yang telah keluar dari range karena ada konfigurasi pada nomor berikutnya yang mengharuskan untuk IP dari `Skypie` adalah `192.179.3.69/24`
   ![image](https://user-images.githubusercontent.com/71221969/141069615-04d05f6a-a62c-4fa8-8350-cf14eeaaf55b.png)
 
-## 4. Client mendapatkan DNS dari EniesLobby dan client dapat terhubung dengan internet melalui DNS tersebut.
+### (Nomor 5) 4. Client mendapatkan DNS dari EniesLobby dan client dapat terhubung dengan internet melalui DNS tersebut.
 Untuk mangerjakan ini digunakan setu DNS forwarder yaitu dengan cara:
 - Langkah 1: Edit file `/etc/bind/named.conf.options` pada server EniesLobby dengan menambahkan:
 ```
@@ -127,7 +127,7 @@ service bind9 restart
   - pada `TottoLand`
   ![image](https://user-images.githubusercontent.com/71221969/141068421-8932f57d-76ea-42e5-b014-fe12416c479f.png)
 
-## 5. Lama waktu DHCP server meminjamkan alamat IP kepada Client yang melalui Switch1 selama 6 menit sedangkan pada client yang melalui Switch3 selama 12 menit. Dengan waktu maksimal yang dialokasikan untuk peminjaman alamat IP selama 120 menit.
+### (Nomor 6) 5. Lama waktu DHCP server meminjamkan alamat IP kepada Client yang melalui Switch1 selama 6 menit sedangkan pada client yang melalui Switch3 selama 12 menit. Dengan waktu maksimal yang dialokasikan untuk peminjaman alamat IP selama 120 menit.
 Nomor ini telah kami kerjakan sekaligus pada nomor 3 sebelumnya yaitu pada code bagian: (pada subnet `192.179.1.0`)
 ```
 default-lease-time 360;
@@ -138,3 +138,27 @@ serta code: (pada subnet `192.179.3.0`)
 default-lease-time 720;
 max-lease-time 7200;
 ```
+## 7. Luffy dan Zoro berencana menjadikan Skypie sebagai server untuk jual beli kapal yang dimilikinya dengan alamat IP yang tetap dengan IP [prefix IP].3.69
+Pada soal ini digunakan konfigurasi fixed address dengan cara:
+- Langkah 1: edit konfigurasi pada file `dhcpd.conf` pada directory `/etc/dhcp/` pada DHCP server yaitu `Jipangu` dengan menambahkan:
+```
+host Skypie{
+    hardware ethernet 1e:04:79:09:f8:1f;
+    fixed-address 192.179.3.69;
+}
+```
+![image](https://user-images.githubusercontent.com/71221969/141072086-b4a214c0-f6a7-46f2-8ca9-13177cb2e9d8.png)
+`hardware ethernet` dari `Skypie` didapatkan dari command `ip a` dari Skypie:
+![image](https://user-images.githubusercontent.com/71221969/141072186-4d9b4727-4335-446c-b2d7-d117ab5404a5.png)
+- Langkah 2: restart DHCP server dengan command 
+```
+isc-dhcp-server
+```
+- Langkah 3: tambahkan pada file `/etc/network/interfaces` pada `Skypie` sehingga menjadi:
+```
+auto eth0
+iface eth0 inet dhcp
+hwaddress ether 1e:04:79:09:f8:1f
+```
+dengan `hwadress ether` dari langkah 1 sebelumnya, dengan begini IP dari `Skypie` menjadi fixed `192.179.3.69/24`:
+![image](https://user-images.githubusercontent.com/71221969/141069615-04d05f6a-a62c-4fa8-8350-cf14eeaaf55b.png)
