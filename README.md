@@ -312,3 +312,32 @@ http_reply_access deny BLACKLIST
 -Langkah 12: ketika pada `Loguetown` dijalankan `lynx google.com` maka akan me-redirect ke halaman `super.franky.b05.com` yang telah di buat
 ![image](https://user-images.githubusercontent.com/71221969/141119877-9a49057f-b701-4fec-9af3-28e10005e82f.png)
 ![image](https://user-images.githubusercontent.com/71221969/141119890-1ea8c389-26bf-44dd-9dbe-868394749e92.png)
+
+## 12. Saatnya berlayar! Luffy dan Zoro akhirnya memutuskan untuk berlayar untuk mencari harta karun di super.franky.yyy.com. Tugas pencarian dibagi menjadi dua misi, Luffy bertugas untuk mendapatkan gambar (.png, .jpg), sedangkan Zoro mendapatkan sisanya. Karena Luffy orangnya sangat teliti untuk mencari harta karun, ketika ia berhasil mendapatkan gambar, ia mendapatkan gambar dan melihatnya dengan kecepatan 10 kbps
+- Langkah 1: tambahkan file `/etc/squid/acl-bandwidth.conf` dengan isi:
+```
+acl download url_regex -i \.jpg$ \.png$
+
+auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd
+
+acl luffy proxy_auth luffybelikapalb05
+acl zoro proxy_auth zorobelikapalb05
+
+delay_pools 2
+delay_class 1 1
+delay_parameters 1 1250/1250
+delay_access 1 allow luffy
+delay_access 1 deny zoro
+delay_access 1 allow download
+delay_access 1 deny all
+```
+- Langkah 2: include kan `acl-bandwidth.conf` pada file `squid`
+```
+include /etc/squid/acl-bandwidth.conf
+```
+![image](https://user-images.githubusercontent.com/71221969/141121500-8fd6d007-797b-439c-90dc-595693203c7b.png)
+- Langkah 3: uji coba untuk melakukan download ketika manjadi luffy
+![image](https://user-images.githubusercontent.com/71221969/141121886-9fc47ae1-394b-47fb-824b-025af8fe02c4.png)
+  Selain itu ketika mencoba download file .js maka kecepatan tidak dibatasi
+  ![image](https://user-images.githubusercontent.com/71221969/141122098-123b3609-c8d9-422f-b03b-bafbf16fbb12.png)
+
