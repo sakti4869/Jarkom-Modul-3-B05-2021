@@ -289,4 +289,23 @@ a2ensite super.franky.b05.com.conf
 - Langkah 6: restart apache2
 - Langkah 7: melakukan konfigurasi pada DNS server yaitu `EniesLobby` dengan menambahkan file `super.franky.b05.com` pada directory `/etc/bind/kaizoku/` dengan isi file:
 ![image](https://user-images.githubusercontent.com/71221969/141105557-72100bdd-98c2-443c-9870-aa100d30153c.png)
-- Langkah 8:
+- Langkah 8: melakukan konfigurasi pada file `/etc/bind/nano named.conf.local` dengan isi file:
+```
+zone "super.franky.b05.com" {
+        type master;
+        file "/etc/bind/kaizoku/super.franky.b05.com";
+        allow-transfer { 192.179.3.69; };
+};
+```
+![image](https://user-images.githubusercontent.com/71221969/141106275-f6c8c480-1a59-4142-b6d2-fe8290079dca.png)
+- Langkah 9: menambahkan `ServerName` dengan IP dari `Skypie` pada file `/etc/apache2/apache2.conf` pada node `Skypie` untuk menandakan jika namaserver nya adalah IP dari `Skypie`:
+![image](https://user-images.githubusercontent.com/71221969/141106583-f12723ec-344a-4887-9adb-e584b1250ca1.png)
+- Langkah 10: pada file `/etc/nano resolv.conf` ditambahkan `nameserver` dengan ip dari DNS server
+![image](https://user-images.githubusercontent.com/71221969/141106974-32e9b076-4994-4027-8d0e-1e77097ac341.png)
+- Langkah 11: Kembali pada proxy server yaitu `Water7` lalu tambahkan comand berikut pada file `/etc/squid/squid.conf`
+```
+acl BLACKLIST dstdomain google.com
+deny_info http://super.franky.b05.com/ BLACKLIST
+http_reply_access deny BLACKLIST
+```
+![image](https://user-images.githubusercontent.com/71221969/141107431-ea283106-0689-49ea-bbb9-1ed91b0c9d0f.png)
