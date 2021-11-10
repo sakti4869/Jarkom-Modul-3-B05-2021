@@ -1,6 +1,6 @@
 # Jarkom-Modul-3-B05-2021
 
-## 1. Luffy bersama Zoro berencana membuat peta tersebut dengan kriteria EniesLobby sebagai DNS Server, Jipangu sebagai DHCP Server, Water7 sebagai Proxy Server
+## 1. Luffy bersama Zoro berencana membuat peta tersebut dengan kriteria EniesLobby sebagai DNS Server, Jipangu sebagai DHCP Server, Water7 sebagai Proxy Server (1)
 - Langkah 1: buat topologi nya
 ![image](https://user-images.githubusercontent.com/71221969/141052412-7a553923-e37f-4276-a44c-0fb293a580de.png)
 - Langkah 2: install library yang diperlukan <br>
@@ -29,6 +29,7 @@ apt-get install isc-dhcp-relay -y
 ![image](https://user-images.githubusercontent.com/71221969/141056838-487762cf-b4cb-49b5-befd-47c793d9ccde.png)
 
 # Ada beberapa kriteria yang ingin dibuat oleh Luffy dan Zoro, yaitu:
+(nomor 3 - 6)
 ## 1. Semua client yang ada HARUS menggunakan konfigurasi IP dari DHCP Server.
 - Langkah 1: set file `interfaces` pada directory `/etc/network` dengan kode berikut supaya IP nya menggunakan konfigurasi dari DHCP server:
 ```
@@ -47,4 +48,4 @@ iface eth0 inet dhcp
 - Pada `TottoLand`
 ![image](https://user-images.githubusercontent.com/71221969/141058284-a7caebf5-8f4f-4b79-a264-2cd6c36ae7eb.png)
 
-
+## 2. Client yang melalui Switch1 mendapatkan range IP dari [prefix IP].1.20 - [prefix IP].1.99 dan [prefix IP].1.150 - [prefix IP].1.169
