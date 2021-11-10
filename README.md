@@ -233,3 +233,27 @@ http_access allow USERS
     kemudian jika memilih untuk tidak mencoba lagi maka akan menampilkan:
   ![image](https://user-images.githubusercontent.com/71221969/141088235-2f5434b9-3be9-44e1-b6a1-a5b72c939438.png)
 
+## 10. Transaksi jual beli tidak dilakukan setiap hari, oleh karena itu akses internet dibatasi hanya dapat diakses setiap hari Senin-Kamis pukul 07.00-11.00 dan setiap hari Selasa-Jum’at pukul 17.00-03.00 keesokan harinya (sampai Sabtu pukul 03.00)
+- Langkah 1: Buat file baru bernama `acl.conf` di directory `/etc/squid/` dalam proxy server yaitu `Water7` dengan cara:
+```
+nano /etc/squid/acl.conf
+```
+- Langkah 2: tambahkan code berikut: 
+```
+acl AVAILABLE_WORKING time MTWH 07:00-11:00
+acl AVAILABLE_WORKING2 time TWHF 17:00-24:00
+acl AVAILABLE_WORKING3 time WHFA 00:00-03:00
+```
+- Langkah 3: tambahkan konfigurasi pada `squid.conf` pada directory `/etc/squid/`:
+```
+http_access allow AVAILABLE_WORKING USERS
+http_access allow AVAILABLE_WORKING2 USERS
+http_access allow AVAILABLE_WORKING3 USERS
+```
+![image](https://user-images.githubusercontent.com/71221969/141091564-5b5ba0ad-0bdb-40c2-90c2-6606d97272e9.png)
+- Langkah 4: restart squid
+- Langkah 5: uji coba pada proxy client yaitu `Loguetown`
+  - jika date tidak cocok dengan yang ada pada `acl.conf` maka akan menampilkan:
+  ![image](https://user-images.githubusercontent.com/71221969/141092422-6dafc4b4-1dbc-41f0-ae8b-c01bd5da101c.png)
+  - namun jika date nya cocok maka akan meminta user dan password lalu menampilkan:
+  ![image](https://user-images.githubusercontent.com/71221969/141087939-bc9caa1a-d027-4ab7-89c5-aa3cb4576765.png)
