@@ -170,6 +170,21 @@ http_port 5000
 visible_hostname jualbelikapal.b05.com
 ```
 ![image](https://user-images.githubusercontent.com/71221969/141075335-3e14c31d-a655-481e-91f8-906923f1183b.png)
-- Langkah 2: export proxy yang telah kita buat dengan cara ``
-- 
--   lakukan pengecekan dengan `lynx its.ac.id` pada `Loguetown`
+- Langkah 2: export proxy yang telah kita buat dengan cara 
+```
+export http_proxy=http://192.179.2.3:5000
+```
+dimana `192.179.2.3` adalah IP dari `Water7` sebagai Proxy server, kemudian proxy bisa di cek dengan command:
+```
+env | grep -i proxy
+```
+![image](https://user-images.githubusercontent.com/71221969/141076913-f5f3a579-bcba-4ce1-b0a5-846519d1d75e.png)
+- Langkah 3: lakukan pengecekan dengan `lynx its.ac.id` pada `Loguetown`, terlihat bahwa proxy sudah terdeteksi pada kotak hijau
+![2021-11-09](https://user-images.githubusercontent.com/71221969/141077685-60d6ff26-963b-4467-b973-9e18227c9cd9.png)
+- Langkah 4: karena secara default data dari luar di deny semua oleh proxy server maka bisa ditambahkan:
+```
+http_access allow all
+```
+untuk mengizinkan data dari internet masuk ke local,berikut tampilan jika berhasil membuka `its.ac.id`:
+![image](https://user-images.githubusercontent.com/71221969/141079042-1173d6fc-fb43-41e0-b09d-1d51ab025f39.png)
+
