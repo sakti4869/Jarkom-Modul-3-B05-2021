@@ -37,13 +37,13 @@ iface eth0 inet dhcp
 ```
 - Pada `Loguetown`
 ![image](https://user-images.githubusercontent.com/71221969/141057409-7cff0855-d38f-4f64-9825-415a80df928d.png)
-<br>
+
 - Pada `Alabasta`
 ![image](https://user-images.githubusercontent.com/71221969/141057899-cd710bb9-0eae-450b-b941-6bf8b69a0d43.png)
-<br>
+
 - Pada `Skypie`
 ![image](https://user-images.githubusercontent.com/71221969/141057994-2a1ff717-11ce-433b-8932-675c35757497.png)
-<br>
+
 - Pada `TottoLand`
 ![image](https://user-images.githubusercontent.com/71221969/141058284-a7caebf5-8f4f-4b79-a264-2cd6c36ae7eb.png)
 
