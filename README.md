@@ -162,3 +162,14 @@ hwaddress ether 1e:04:79:09:f8:1f
 ```
 dengan `hwadress ether` dari langkah 1 sebelumnya, dengan begini IP dari `Skypie` menjadi fixed `192.179.3.69/24`:
 ![image](https://user-images.githubusercontent.com/71221969/141069615-04d05f6a-a62c-4fa8-8350-cf14eeaaf55b.png)
+
+## 8. Pada Loguetown, proxy harus bisa diakses dengan nama jualbelikapal.yyy.com dengan port yang digunakan adalah 5000
+- Langkah 1: Buat konfigurasi Squid baru Pada file `/etc/squid/squid.conf` pada Proxy server yaitu `Water7`:
+```
+http_port 5000
+visible_hostname jualbelikapal.b05.com
+```
+![image](https://user-images.githubusercontent.com/71221969/141075335-3e14c31d-a655-481e-91f8-906923f1183b.png)
+- Langkah 2: export proxy yang telah kita buat dengan cara ``
+- 
+-   lakukan pengecekan dengan `lynx its.ac.id` pada `Loguetown`
