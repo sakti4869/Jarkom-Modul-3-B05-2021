@@ -49,3 +49,24 @@ iface eth0 inet dhcp
 ![image](https://user-images.githubusercontent.com/71221969/141058284-a7caebf5-8f4f-4b79-a264-2cd6c36ae7eb.png)
 
 ## 2. Client yang melalui Switch1 mendapatkan range IP dari [prefix IP].1.20 - [prefix IP].1.99 dan [prefix IP].1.150 - [prefix IP].1.169
+- Langkah 1: edit konfigurasi pada file `dhcpd.conf` pada directory `/etc/dhcp/` dengan menambahkan:
+```
+subnet 192.179.2.0 netmask 255.255.255.0 {
+     option routers 192.179.2.1;
+}
+```
+supaya DHCP relay yaitu `Foosha` dapat terhubung dengan subnet `192.179.2.0`.<br>
+- Langkah 2: tambahkan juga pada file yang sama:
+```
+subnet 192.179.1.0 netmask 255.255.255.0 {
+    range 192.179.1.20 192.179.1.99;
+    range 192.179.1.150 192.179.1.169;
+    option routers 192.179.1.1;
+    option broadcast-address 192.179.1.255;
+    option domain-name-servers 192.179.2.2;
+    default-lease-time 360;
+    max-lease-time 7200;
+}
+```
+untuk mengatur range IP pada `Switch1`
+![image](https://user-images.githubusercontent.com/71221969/141066354-f9f88507-10a9-47d5-a31e-6480ee1d18a7.png)
