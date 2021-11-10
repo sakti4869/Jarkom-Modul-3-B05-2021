@@ -188,3 +188,48 @@ http_access allow all
 untuk mengizinkan data dari internet masuk ke local,berikut tampilan jika berhasil membuka `its.ac.id`:
 ![image](https://user-images.githubusercontent.com/71221969/141079042-1173d6fc-fb43-41e0-b09d-1d51ab025f39.png)
 
+## 9. Agar transaksi jual beli lebih aman dan pengguna website ada dua orang, proxy dipasang autentikasi user proxy dengan enkripsi MD5 dengan dua username, yaitu luffybelikapalyyy dengan password luffy_yyy dan zorobelikapalyyy dengan password zoro_yyy
+- Langkah 1: Install `apache2-utils` pada node `Water7`
+```
+apt-get install apache2-utils -y
+```
+- Langkah 2: Buat user dan password baru pada file `/etc/squid/passwd`:
+  - untuk user: `luffybelikapalb05`
+    ```
+    touch /etc/squid/passwd
+    htpasswd -m /etc/squid/passwd luffybelikapalb05
+    ```
+    lalu ketikkan password: `luffy_b05`
+  - untuk user: `zorobelikapalb05`
+    ```
+    htpasswd -m /etc/squid/passwd zorobelikapalb05
+    ```
+    lalu ketikkan password: `zoro_b05`
+  Sehingga isi dari file `/etc/squid/passwd` adalah:
+  ![image](https://user-images.githubusercontent.com/71221969/141085430-30dc0acd-0011-47a3-b46a-45ce84b4741d.png)
+  dimana password telah ter-enkripsi dengan MD5.
+- Langkah 3: Edit konfigurasi squid pada file `/etc/squid/squid.conf` menjadi:
+```
+http_port 5000
+visible_hostname jualbelikapal.b05.com
+
+auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd
+auth_param basic children 5
+auth_param basic realm Proxy
+auth_param basic credentialsttl 2 hours
+auth_param basic casesensitive on
+acl USERS proxy_auth REQUIRED
+http_access allow USERS
+```
+- Langkah 4: Restart squid
+- Langkah 5: uji coba dengan `lynx its.ac.id`
+  - Ketika domain telah ditemukan, maka kita akan diminta username dan password untuk authentikasi 
+  ![image](https://user-images.githubusercontent.com/71221969/141087665-b7b6c398-2030-4672-bf36-94d2f0813b39.png)
+  ![image](https://user-images.githubusercontent.com/71221969/141087788-91ab8e53-dd5e-46b8-b26c-a2235ca38a59.png)
+  - Ketika username dan password cocok maka akan masuk ke `its.ac.id`
+  ![image](https://user-images.githubusercontent.com/71221969/141087939-bc9caa1a-d027-4ab7-89c5-aa3cb4576765.png)
+  - Ketika username dan password tidak cocok maka akan menampilkan:
+  ![image](https://user-images.githubusercontent.com/71221969/141088163-abd1b3e5-9f08-4c1c-9344-10634b9bd72a.png)
+    kemudian jika memilih untuk tidak mencoba lagi maka akan menampilkan:
+  ![image](https://user-images.githubusercontent.com/71221969/141088235-2f5434b9-3be9-44e1-b6a1-a5b72c939438.png)
+
