@@ -341,3 +341,14 @@ include /etc/squid/acl-bandwidth.conf
   Selain itu ketika mencoba download file .js maka kecepatan tidak dibatasi
   ![image](https://user-images.githubusercontent.com/71221969/141122098-123b3609-c8d9-422f-b03b-bafbf16fbb12.png)
 
+## 13. Sedangkan, Zoro yang sangat bersemangat untuk mencari harta karun, sehingga kecepatan kapal Zoro tidak dibatasi ketika sudah mendapatkan harta yang diinginkannya
+- Langkah 1: tambahkan isi file `/etc/squid/acl-bandwidth.conf` dengan:
+```
+delay_class 2 1
+delay_parameters 2 -1/-1
+delay_access 2 allow zoro
+delay_access 2 deny luffy
+delay_access 2 deny all
+```
+- Langkah 2: lakukan uji coba download sebagai zoro maka download akan langsung selesai:
+![image](https://user-images.githubusercontent.com/71221969/141122661-f6cb4ec4-e87b-4fef-870b-47aa08d6d6d1.png)
