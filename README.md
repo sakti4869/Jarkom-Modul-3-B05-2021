@@ -1,7 +1,7 @@
 # Jarkom-Modul-3-B05-2021
 
 ## 1. Luffy bersama Zoro berencana membuat peta tersebut dengan kriteria EniesLobby sebagai DNS Server, Jipangu sebagai DHCP Server, Water7 sebagai Proxy Server
-- Langkah 1: Buat topologi nya
+- Langkah 1: buat topologi nya
 ![image](https://user-images.githubusercontent.com/71221969/141052412-7a553923-e37f-4276-a44c-0fb293a580de.png)
 - Langkah 2: install library yang diperlukan <br>
 
@@ -17,5 +17,13 @@
   ```
   apt-get install squid -y
   ```
-- Langkah 3: Set interfaces pada file `/etc/default/isc-dhcp-server` menjadi `eth0` supaya dia dapat terhubung ke switch yang menghubungkannya dengan DHCP relay
+- Langkah 3: set interfaces pada file `/etc/default/isc-dhcp-server` menjadi `eth0` supaya dia dapat terhubung ke switch yang menghubungkannya dengan DHCP relay
 ![image](https://user-images.githubusercontent.com/71221969/141052960-5e865626-a521-4bda-9fba-5d28b924d400.png)
+
+## 2. dan Foosha sebagai DHCP Relay (2)
+- Langkah 1: install library untuk DHCP relay pada `Foosha` dengan menjalankan
+```
+apt-get install isc-dhcp-relay -y
+```
+- Langkah 2: set SERVERS nya dengan IP dari DHCP server yaitu `192.179.2.4` supaya terhubung dengan DHCP server dan interfaces nya menjadi `eth1 eth2 eth3` supaya terhubung dengan switch1, switch2 dan switch3
+![image](https://user-images.githubusercontent.com/71221969/141056838-487762cf-b4cb-49b5-befd-47c793d9ccde.png)
