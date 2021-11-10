@@ -257,3 +257,36 @@ http_access allow AVAILABLE_WORKING3 USERS
   ![image](https://user-images.githubusercontent.com/71221969/141092422-6dafc4b4-1dbc-41f0-ae8b-c01bd5da101c.png)
   - namun jika date nya cocok maka akan meminta user dan password lalu menampilkan:
   ![image](https://user-images.githubusercontent.com/71221969/141087939-bc9caa1a-d027-4ab7-89c5-aa3cb4576765.png)
+
+## 11. Agar transaksi bisa lebih fokus berjalan, maka dilakukan redirect website agar mudah mengingat website transaksi jual beli kapal. Setiap mengakses google.com, akan diredirect menuju super.franky.yyy.com dengan website yang sama pada soal shift modul 2. Web server super.franky.yyy.com berada pada node Skypie
+- Langkah 1: install library yang dibutuhkan pada `Skypie`:
+```
+apt-get update
+apt-get install apache2 -y
+```
+- Langkah 2: buat sebuah directory baru di dalam `var/www` dengan nama `super.franky.b05.com` lalu isi dengan unzip an dari file yang telah di download:
+```
+wget https://raw.githubusercontent.com/FeinardSlim/Praktikum-Modul-2-Jarkom/main/super.franky.zip
+unzip super.franky.zip
+```
+- Langkah 3: pindahkan unzip an file tersebut kedalam `/var/www/super.franky.b05.com` sehingga isi folder adalah:
+![image](https://user-images.githubusercontent.com/71221969/141103419-501e2e7b-116d-4da0-ab32-5f7098eb6f31.png)
+
+- Langkah 4: buat file `super.franky.b05.com.conf` dengan men-copy file `000-default.conf` pada directory `/etc/apache2/sites-available` lalu menambahkan:
+```
+ServerAdmin webmaster@localhost
+DocumentRoot /var/www/super.franky.b05.com
+ServerName super.franky.b05.com
+ServerAlias www.super.franky.b05.com
+```
+![image](https://user-images.githubusercontent.com/71221969/141105085-e5268212-bf4d-4a14-b253-cb8bd3b58654.png)
+
+- Langkah 5: aktifkan konfigurasi `super.franky.b05.com.conf` dengan perintah 
+```
+a2ensite super.franky.b05.com.conf
+```
+
+- Langkah 6: restart apache2
+- Langkah 7: melakukan konfigurasi pada DNS server yaitu `EniesLobby` dengan menambahkan file `super.franky.b05.com` pada directory `/etc/bind/kaizoku/` dengan isi file:
+![image](https://user-images.githubusercontent.com/71221969/141105557-72100bdd-98c2-443c-9870-aa100d30153c.png)
+- Langkah 8:
