@@ -70,3 +70,59 @@ subnet 192.179.1.0 netmask 255.255.255.0 {
 ```
 untuk mengatur range IP pada `Switch1`
 ![image](https://user-images.githubusercontent.com/71221969/141066354-f9f88507-10a9-47d5-a31e-6480ee1d18a7.png)
+- Langkah 3: lakukan pengecekan ip pada client yang terhubung dengan `Switch1` menggunakan command `ip a` lalu cek pada bagian `eth0`
+  - Pada `Loguetown` terlihat bahwa ip nya adalah `192.179.1.35/24` yang masih termasuk dalam range 
+  ![image](https://user-images.githubusercontent.com/71221969/141068827-2546c193-e508-473b-8b62-1cd3130e4ab4.png)
+  - Pada `Alabasta` terlihat bahwa ip nya adalah `192.179.1.34/24` yang masih termasuk dalam range
+  ![image](https://user-images.githubusercontent.com/71221969/141069228-a7b0831e-4821-4bb3-96e2-3d72abdd5991.png)
+
+## 3. Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.30 - [prefix IP].3.50
+- Langkah 1: tambahkan juga konfigurasi pada file `dhcpd.conf` pada directory `/etc/dhcp/` pada DHCP server dengan:
+```
+subnet 192.179.3.0 netmask 255.255.255.0 {
+    range 192.179.3.30 192.179.3.50;
+    option routers 192.179.3.1;
+    option broadcast-address 192.179.3.255;
+    option domain-name-servers 192.179.2.2;
+    default-lease-time 720;
+    max-lease-time 7200;
+}
+```
+![image](https://user-images.githubusercontent.com/71221969/141066976-1bd7c7d2-edf6-4d33-a44f-d6969ce027d8.png)
+- Langkah 2: lakukan pengecekan ip pada client yang terhubung dengan `Switch3` menggunakan command `ip a` lalu cek pada bagian `eth0`
+  - Pada `TottoLand` terlihat bahwa ip nya adalah `192.179.3.35/24` yang masih termasuk dalam range
+  ![image](https://user-images.githubusercontent.com/71221969/141069896-4eeea5c7-050b-4523-b8a6-55d0fede64ff.png)
+ 
+  - Pada `Skypie` terlihat bahwa ip nya adalah `192.179.3.69/24` yang telah keluar dari range karena ada konfigurasi pada nomor berikutnya yang mengharuskan untuk IP dari `Skypie` adalah `192.179.3.69/24`
+  ![image](https://user-images.githubusercontent.com/71221969/141069615-04d05f6a-a62c-4fa8-8350-cf14eeaaf55b.png)
+
+## 4. Client mendapatkan DNS dari EniesLobby dan client dapat terhubung dengan internet melalui DNS tersebut.
+Untuk mangerjakan ini digunakan setu DNS forwarder yaitu dengan cara:
+- Langkah 1: Edit file `/etc/bind/named.conf.options` pada server EniesLobby dengan menambahkan:
+```
+forwarders {
+  192.168.122.1;
+};
+```
+- Langkah 2: comment pada bagian:
+```
+dnssec-validation auto;
+```
+- Langkah 3: lalu tambahkan:
+```
+allow-query{any;};
+```
+![image](https://user-images.githubusercontent.com/71221969/141067740-7522fe68-c082-483b-96c0-c5e53f8ca9cf.png)
+- Langkah 4: restart DNS server yaitu `EniesLobby` dengan cara:
+```
+service bind9 restart
+```
+- Langkah 5: cek pada client untuk `ping google.com`
+  - pada `Loguetown`
+  ![image](https://user-images.githubusercontent.com/71221969/141068145-7ee87e67-92fa-47f1-9072-264e248e97c0.png)
+  - pada `Alabasta`
+  ![image](https://user-images.githubusercontent.com/71221969/141068274-ba9ec28d-a4f1-416a-a6f6-734231b648da.png)
+  - pada `Skypie`
+  ![image](https://user-images.githubusercontent.com/71221969/141068342-e5ec382c-00c0-4ee7-b819-351f67109821.png)
+  - pada `TottoLand`
+  ![image](https://user-images.githubusercontent.com/71221969/141068421-8932f57d-76ea-42e5-b014-fe12416c479f.png)
