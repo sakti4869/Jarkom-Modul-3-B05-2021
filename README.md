@@ -197,12 +197,12 @@ apt-get install apache2-utils -y
   - untuk user: `luffybelikapalb05`
     ```
     touch /etc/squid/passwd
-    htpasswd -m /etc/squid/passwd luffybelikapalb05
+    htpasswd -nbm /etc/squid/passwd luffybelikapalb05
     ```
     lalu ketikkan password: `luffy_b05`
   - untuk user: `zorobelikapalb05`
     ```
-    htpasswd -m /etc/squid/passwd zorobelikapalb05
+    htpasswd --nbm /etc/squid/passwd zorobelikapalb05
     ```
     lalu ketikkan password: `zoro_b05`
   Sehingga isi dari file `/etc/squid/passwd` adalah:
