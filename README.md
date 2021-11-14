@@ -1,5 +1,13 @@
 # Jarkom-Modul-3-B05-2021
 
+## Anggota Kelompok ##
+
+Ivan Muhammad Nizar 05111940000052
+
+Aji Wahyu Admaja Utama 05111940000073
+
+Muhammad Haikal Aria Sakti 05111940000088
+
 ## 1. Luffy bersama Zoro berencana membuat peta tersebut dengan kriteria EniesLobby sebagai DNS Server, Jipangu sebagai DHCP Server, Water7 sebagai Proxy Server (1)
 - Langkah 1: buat topologi nya
 ![image](https://user-images.githubusercontent.com/71221969/141052412-7a553923-e37f-4276-a44c-0fb293a580de.png)
